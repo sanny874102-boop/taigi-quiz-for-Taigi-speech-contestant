@@ -62,8 +62,10 @@
         .btn-restart { background: #9d174d; color: white; }
         .btn-restart:hover { background: #831843; }
         
-        /* 評語專屬樣式 */
         .feedback-text { font-size: 26px; font-weight: bold; color: #be185d; margin: 15px 0; padding: 10px; background: #fdf2f8; border-radius: 8px; border: 2px dashed #fbcfe8; }
+        
+        /* 版權與瀏覽次數區域 */
+        .footer-area { margin-top: 20px; color: #db2777; font-size: 16px; text-align: center; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -94,14 +96,15 @@
     <div id="result" class="hidden"></div>
 </div>
 
-<div style="margin-top: 20px; color: #db2777; font-size: 16px; text-align: center;">
-    本站總瀏覽人次：<span id="busuanzi_value_site_pv">載入中</span> 次
+<div class="footer-area">
+    本站總瀏覽人次：<span id="busuanzi_value_site_pv">載入中</span> 次<br>
+    Copyright &copy; 2026 游雪君. All rights reserved.
 </div>
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <script>
-// --- ⚠️ 請記得在這裡貼上你的 Google Sheets CSV 連結 ---
+// --- ⚠️ 雲端題庫 CSV 連結 ---
 const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQL_qfHDa8zQs3krnY7DFt-PZSKy2rEsu22Vt1iEe41NfaL6h6ix24IDNG33Pefy_cK7eN6aeOFYhTN/pub?output=csv';
 
 let allData = [];
@@ -229,7 +232,6 @@ function showResult() {
     const resultBox = document.getElementById('result');
     resultBox.classList.remove('hidden');
     
-    // --- 新增：計算比例並決定評語 ---
     let ratio = score / quizList.length;
     let feedbackMsg = "";
     
@@ -243,11 +245,8 @@ function showResult() {
         feedbackMsg = "原來高手就是你！🏆";
     }
     
-    // 生成結果畫面
     let html = `<h2 style="color: #9d174d; font-size: 32px; margin-bottom:10px;">測驗完成！</h2>`;
     html += `<p style="font-size: 24px; color: #831843; font-weight:bold; margin-bottom: 5px;">你的得分：${score} / ${quizList.length}</p>`;
-    
-    // 顯示台語評語區塊
     html += `<div class="feedback-text">${feedbackMsg}</div>`;
     
     if (wrongAnswers.length > 0) {
